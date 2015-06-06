@@ -5,6 +5,15 @@ namespace MyBlog\Http;
 class Request
 {
     /**
+     * $_FILES est la superglobale où des informations concernant les fichiers
+     * joints à la requête HTTP sont extraites. Ces informations sont accesssibles
+     * sous la forme de tableaux associatifs imbriqués. Pour une question pratique,
+     * nous préférons manipuler des objets représentant ces informations.
+     * C'est la raison pour laquelle la classe \MyBlog\Http\RequestFile a été introduite.
+     * La méthode \MyBlog\Http\Request::getRequestFilesFromGlobals() analyse le contenu
+     * de la superglobale $_FILES, construit un tableau d'objets de type
+     * \MyBlog\Http\RequestFile à partir de ce contenu et retourne ce tableau.
+     *
      * @return RequestFile[]
      */
     public function getRequestFilesFromGlobals()
@@ -12,7 +21,9 @@ class Request
         $files_to_return = [];
 
         foreach ($_FILES as $key_name => $file_data) {
-            if ($file_data['error'] !== 4) {
+            /* La liste exhaustive des status d'erreur est disponible dans la documentation
+               de PHP : http://php.net/manual/fr/features.file-upload.errors.php */
+            if ($file_data['error'] !== UPLOAD_ERR_NO_FILE) {
                 $request_file = new RequestFile();
 
                 $request_file->setName($file_data['name']);
@@ -29,6 +40,9 @@ class Request
     }
 
     /**
+     * Cette méthode déplace un fichier de requête vers un répertoire de destination.
+     * Un nouveau nom généré semi-aléatoirement pour le fichier.
+     *
      * @return string|boolean
      */
     public function moveAndRenameUploadedFile(RequestFile $request_file, $destination_folder)
@@ -41,6 +55,11 @@ class Request
     }
 
     /**
+     * Cette méthode génère une chaine de caractères unique qui sera utilisée
+     * pour renommer le fichier à déplacer dans la méthode moveAndRenameUploadedFile().
+     * L'extension du nom du fichier d'origine est conservé et ajoutée à la fin de cette
+     * chaîne de caractères.
+     *
      * @return string
      */
     private function generateUniqueNameForFile(RequestFile $request_file)

@@ -6,7 +6,7 @@ namespace MyBlog\Database;
  * Cette classe représente une légère surchouche à la classe \PDO.
  * Le contrôleur est surchargé afin de faciliter l'instanciation et la méthode
  * de classe getInstance() est écrite de façon à toujours retourner la même
- * instance de de classe classe. Ce modèle est inspiré du patron de construction
+ * instance de classe. Ce modèle est inspiré du patron de construction
  * Singleton qui permet de réduire la consommation mémoire lors de l'éxécution du
  * script.
  * Par ailleurs, dans le cas de cette classe, une seule instance de \PDO

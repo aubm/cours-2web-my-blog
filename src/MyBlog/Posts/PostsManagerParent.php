@@ -46,6 +46,7 @@ abstract class PostsManagerParent
         if (isset($post_data['uploaded_files']['illustration_original'])) {
             $post->setIllustrationOriginalFile($post_data['uploaded_files']['illustration_original']);
         }
+
         if (isset($post_data['uploaded_files']['illustration_preview'])) {
             $post->setIllustrationPreviewFile($post_data['uploaded_files']['illustration_preview']);
         }

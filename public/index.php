@@ -6,4 +6,6 @@ use MyBlog\App;
 
 $app = new App();
 $app->initRouterWithConfig(json_decode(file_get_contents(__DIR__ . '/../routes.json'), true));
-$app->handleRequest();
+$response = $app->handleRequest();
+
+echo $response;

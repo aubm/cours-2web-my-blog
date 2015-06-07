@@ -1,29 +1,3 @@
-<?php
-
-include(__DIR__ . '/../bootstrap.php');
-
-use MyBlog\Authentication\Factory;
-use MyBlog\Navigation\NavigationHelper;
-use MyBlog\Hash\Factory as HashFactory;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $users_manager = Factory::getUsersManager();
-    $user = $users_manager->getOneUserByUsername($_POST['username']);
-
-    if ($user !== null) {
-        $hasher = HashFactory::getHasher();
-        if ($hasher->compare($_POST['password'], $user->getPassword())) {
-            $authentication_helper = Factory::getAuthenticationHelper();
-            $authentication_helper->setCurrentUser($user);
-
-            $navigation_helper = new NavigationHelper();
-            $navigation_helper->redirectUser('admin/index.php');
-        }
-    }
-
-    $error = 'Nom d\'utilisation ou mot de passe incorrect';
-}
-?>
 <!doctype html>
 <html>
 <head>
@@ -48,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="collapse navbar-collapse" id="main-menu-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="<?= SERVER_ROOT ?>/index.php">Accueil</a></li>
+                <li><a href="<?= SERVER_ROOT ?>/">Accueil</a></li>
             </ul>
         </div>
     </div>
@@ -56,25 +30,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="page-content">
     <div class="container">
         <form method="post">
-            <?php if (isset($error)): ?>
-                <p class="text-danger">
-                    <?= $error ?>
-                </p>
-            <?php endif; ?>
             <div class="form-group">
                 <label for="username">Nom d'utilisation</label>
-                <input type="text" id="username" name="username" class="form-control"/>
+                <?php foreach ($validation_errors->getErrorsForField('username') as $error_message): ?>
+                    <p class="text-danger"><?= $error_message ?></p>
+                <?php endforeach; ?>
+                <input type="text" id="username" name="username" class="form-control"
+                       value="<?= $user->getUsername() ?>"/>
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
+                <?php foreach ($validation_errors->getErrorsForField('password') as $error_message): ?>
+                    <p class="text-danger"><?= $error_message ?></p>
+                <?php endforeach; ?>
                 <input type="password" id="password" name="password" class="form-control"/>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Se connecter</button>
+                <label for="password_confirmation">Confirmation du mot de passe</label>
+                <?php foreach ($validation_errors->getErrorsForField('password_confirmation') as $error_message): ?>
+                    <p class="text-danger"><?= $error_message ?></p>
+                <?php endforeach; ?>
+                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Créer un compte</button>
             </div>
             <div>
-                <p>Vous n'avez pas encore de compte ? <a href="<?= SERVER_ROOT ?>/register.php">Enregistrez vous.</a>
-                </p>
+                <p>Vous avez déjà un compte ? <a href="<?= SERVER_ROOT ?>/login">Connectez vous.</a></p>
             </div>
         </form>
     </div>

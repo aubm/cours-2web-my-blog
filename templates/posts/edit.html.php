@@ -1,69 +1,11 @@
-<?php
-
-include(__DIR__ . '/../../bootstrap.php');
-
-use \MyBlog\Posts\Factory;
-use MyBlog\Posts\Post;
-use MyBlog\Navigation\NavigationHelper;
-use MyBlog\Http\Request;
-use MyBlog\Validation\ValidationErrors;
-use MyBlog\Validation\ValidationException;
-
-include (__DIR__ . '/check-user-authentication.php');
-
-/* Les variables $validation_errors et $post sont utilisées dans le template
-   qu'il s'agisse d'une requête de type GET ou de type POST.
-
-   L'objet $validation_errors est utilisé pour extraire les erreurs potentielles
-   associées aux champs du formulaire.
-
-   L'état de $post est utilisé pour pré-remplir les champs du formulaire
-   (voir notamment les attributs value des champs input). */
-$validation_errors = new ValidationErrors();
-$post = new Post();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $request = new Request();
-    $posts_manager = Factory::getPostsManager();
-
-    /* $post contient une instance de \MyBlog\Posts\Post dont l'état
-       est issu des informations contenues dans le corps de la
-       requête HTTP (ei: $_POST) */
-    $post = $posts_manager->createNewPost([
-        'title' => $_POST['title'],
-        'slug' => $_POST['slug'],
-        'content' => $_POST['content'],
-        'content_short' => $_POST['content_short'],
-        'uploaded_files' => $request->getRequestFilesFromGlobals()
-    ]);
-
-    try {
-        /* PostsManagerInterface::validate() lévera une exception du type
-           \MyBlog\Validation\ValidationException si des erreurs de validation
-           existent.
-           Cette exception sera catchée par le bloc catch, dans lequel
-           l'instance de \MyBlog\Validation\ValidationErrors sera extraite (afin
-           d'être utilisée dans le template).
-           Si aucune exception n'est levée, les instructions suivantes du bloc
-           try seront executées. Ainsi le post sera sauvegardé, puis l'utilisateur
-           sera redirigé vers l'accueil de l'espace d'administration. */
-        $posts_manager->validate($post);
-        $posts_manager->save($post);
-        $navigation_helper = new NavigationHelper();
-        $navigation_helper->redirectUser('index.php');
-    } catch (ValidationException $e) {
-        $validation_errors = $e->getValidationErrors();
-    }
-}
-?>
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="<?= SERVER_ROOT ?>/../dist/app.min.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="<?= SERVER_ROOT ?>/../dist/jquery.min.js"></script>
-    <script type="text/javascript" src="<?= SERVER_ROOT ?>/../dist/bootstrap.min.js"></script>
+    <link href="<?= SERVER_ROOT ?>/dist/app.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="<?= SERVER_ROOT ?>/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= SERVER_ROOT ?>/dist/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top main-navbar">
@@ -76,13 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="<?= SERVER_ROOT ?>/" class="navbar-brand">Mon blog - Administration</a>
+            <a href="<?= SERVER_ROOT ?>/admin" class="navbar-brand">Mon blog - Administration</a>
         </div>
         <div class="collapse navbar-collapse" id="main-menu-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="<?= SERVER_ROOT ?>/">Administration</a></li>
-                <li class="active"><a href="<?= SERVER_ROOT ?>/post-edition.php">Ajouter un article</a></li>
-                <li><a href="<?= SERVER_ROOT ?>/../">Déconnexion</a></li>
+                <li><a href="<?= SERVER_ROOT ?>/admin">Administration</a></li>
+                <li class="active"><a href="<?= SERVER_ROOT ?>/admin/edit_post">Ajouter un article</a></li>
+                <li><a href="<?= SERVER_ROOT ?>/logout">Déconnexion</a></li>
             </ul>
         </div>
     </div>

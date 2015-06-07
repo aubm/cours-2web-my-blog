@@ -1,23 +1,12 @@
-<?php
-
-include(__DIR__ . '/../../bootstrap.php');
-
-use \MyBlog\Posts\Factory;
-
-include (__DIR__ . '/check-user-authentication.php');
-
-$posts_manager = Factory::getPostsManager();
-$posts = $posts_manager->getAllPosts();
-?>
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="<?= SERVER_ROOT ?>/../dist/app.min.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="<?= SERVER_ROOT ?>/../dist/jquery.min.js"></script>
-    <script type="text/javascript" src="<?= SERVER_ROOT ?>/../dist/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?= SERVER_ROOT ?>/../javascripts/remove-post.jquery.js"></script>
+    <link href="<?= SERVER_ROOT ?>/dist/app.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="<?= SERVER_ROOT ?>/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= SERVER_ROOT ?>/dist/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?= SERVER_ROOT ?>/javascripts/remove-post.jquery.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top main-navbar">
@@ -30,13 +19,13 @@ $posts = $posts_manager->getAllPosts();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="<?= SERVER_ROOT ?>/" class="navbar-brand">Mon blog - Administration</a>
+            <a href="<?= SERVER_ROOT ?>/admin" class="navbar-brand">Mon blog - Administration</a>
         </div>
         <div class="collapse navbar-collapse" id="main-menu-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<?= SERVER_ROOT ?>/">Administration</a></li>
-                <li><a href="<?= SERVER_ROOT ?>/post-edition.php">Ajouter un article</a></li>
-                <li><a href="<?= SERVER_ROOT ?>/../logout.php">Déconnexion</a></li>
+                <li class="active"><a href="<?= SERVER_ROOT ?>/admin">Administration</a></li>
+                <li><a href="<?= SERVER_ROOT ?>/admin/edit_post">Ajouter un article</a></li>
+                <li><a href="<?= SERVER_ROOT ?>/logout">Déconnexion</a></li>
             </ul>
         </div>
     </div>
@@ -56,7 +45,7 @@ $posts = $posts_manager->getAllPosts();
             <tbody id="posts-container">
             <?php foreach ($posts as $post) : ?>
                 <tr id="post-<?= $post->getId() ?>">
-                    <td><a href="<?= SERVER_ROOT ?>/post-edition.php"><?= $post->getTitle() ?></a></td>
+                    <td><?= $post->getTitle() ?></td>
                     <td><?= $post->getSlug() ?></td>
                     <td><?= $post->getContentShort() ?> ...</td>
                     <td><?= $post->getPublishedAt() ?></td>

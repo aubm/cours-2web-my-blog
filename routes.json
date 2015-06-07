@@ -1,0 +1,47 @@
+[
+    {
+        "path": "/",
+        "handler_name": "\\MyBlog\\Handlers\\PostsHandler",
+        "handler_method": "index"
+    },
+    {
+        "path": "/post_details",
+        "handler_name": "\\MyBlog\\Handlers\\PostsHandler",
+        "handler_method": "details"
+    },
+    {
+        "path": "/admin",
+        "handler_name": "\\MyBlog\\Handlers\\PostsHandler",
+        "handler_method": "adminIndex"
+    },
+    {
+        "path": "/admin/edit_post",
+        "handler_name": "\\MyBlog\\Handlers\\PostsHandler",
+        "handler_method": "edit"
+    },
+    {
+        "path": "/admin/remove_post",
+        "handler_name": "\\MyBlog\\Handlers\\PostsHandler",
+        "handler_method": "remove"
+    },
+    {
+        "path": "/admin/remove_post_ajax",
+        "handler_name": "\\MyBlog\\Handlers\\PostsHandler",
+        "handler_method": "removeAjax"
+    },
+    {
+        "path": "/login",
+        "handler_name": "\\MyBlog\\Handlers\\AuthenticationHandler",
+        "handler_method": "login"
+    },
+    {
+        "path": "/logout",
+        "handler_name": "\\MyBlog\\Handlers\\AuthenticationHandler",
+        "handler_method": "logout"
+    },
+    {
+        "path": "/register",
+        "handler_name": "\\MyBlog\\Handlers\\AuthenticationHandler",
+        "handler_method": "register"
+    }
+]

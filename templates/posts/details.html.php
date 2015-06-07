@@ -1,15 +1,3 @@
-<?php
-
-include(__DIR__ . '/../bootstrap.php');
-
-use \MyBlog\Posts\Factory;
-
-$posts_manager = Factory::getPostsManager();
-/* Le paramètre d'url postSlug peut être directement lu en accédant
-   à l'index 'postSlug' de la superglobale $_GET. $_GET, au même titre que
-   $_POST, $_REQUEST, $_SERVER, $_SESSION (etc ...) est de type array. */
-$post = $posts_manager->getOnePostBySlug($_GET['postSlug']);
-?>
 <!doctype html>
 <html>
     <head>
@@ -33,7 +21,7 @@ $post = $posts_manager->getOnePostBySlug($_GET['postSlug']);
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?= SERVER_ROOT ?>/index.php">Accueil</a></li>
+                        <li class="active"><a href="<?= SERVER_ROOT ?>/">Accueil</a></li>
                     </ul>
                 </div>
             </div>

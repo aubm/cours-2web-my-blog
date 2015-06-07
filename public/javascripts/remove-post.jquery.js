@@ -3,7 +3,7 @@
         $(".remove-button").click(function() {
             var postId = $(this).data().postId;
             $.ajax({
-                url: "remove-post-ajax.php",
+                url: "admin/remove_post_ajax",
                 method: "POST",
                 data: {
                     post_id: postId

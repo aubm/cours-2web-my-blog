@@ -22,6 +22,10 @@ $server_root = dirname($_SERVER['SCRIPT_NAME']);
 $server_root = ($server_root !== '/' && $server_root !== '\\') ? $server_root : '';
 define('SERVER_ROOT', $server_root);
 
+/* Il définit la constante TEMPLATES_DIR qui contient le chemin système vers le répertoire
+   sous lequel sous stockés les fichiers templates */
+define('TEMPLATES_DIR', __DIR__ . '/templates');
+
 /* Il définit le comportement du chargement automatique des classes et des interfaces pour le site.
    Cette configuration repose sur les conventions suivantes :
        - l'espace de nommage d'une classe doit correspondre au chemin vers le fichier où est définie cette classe,

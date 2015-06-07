@@ -15,7 +15,7 @@
                         }
                     }
                 };
-                xhr.open('POST', 'remove-post-ajax.php', true);
+                xhr.open('POST', 'admin/remove_post_ajax', true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Content-length", requestBody.length);
                 xhr.send(requestBody);

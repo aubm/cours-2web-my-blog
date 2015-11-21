@@ -17,3 +17,7 @@ Ce projet est un support pour le cours de Supinfo 2WEB promotion 2014/2015.
 
 - Naviguer sur `localhost:8080` pour atteindre la page d'accueil.
 - Naviguer sur `localhost:8080/admin` pour atteindre l'administration du site protégée par user/mot de passe.
+
+# License
+
+http://www.apache.org/licenses/LICENSE-2.0

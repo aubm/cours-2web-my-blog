@@ -19,12 +19,8 @@ class Database extends \PDO
 
     public function __construct()
     {
-        $dsn = 'mysql:dbname=my_blog_2web;host=127.0.0.1';
-        $root = 'root';
-        $password = 'root';
-
         try {
-            parent::__construct($dsn, $root, $password);
+            parent::__construct(DATABASE_DSN, DATABASE_USER, DATABASE_PASSWORD);
         } catch (\PDOException $e) {
             echo $e->getMessage();
             exit();

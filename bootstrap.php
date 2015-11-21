@@ -41,3 +41,6 @@ spl_autoload_register(function ($class_name) {
     $class_name = str_replace('\\', '/', $class_name);
     include (__DIR__ . '/src/' . $class_name . '.php');
 });
+
+/* Il importe un fichier de configuration contenant la configuration globale de l'application */
+include (__DIR__ . '/config.php');

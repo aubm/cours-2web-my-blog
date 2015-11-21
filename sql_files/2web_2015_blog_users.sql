@@ -4,7 +4,3 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `users` (`id`, `username`, `password`)
-VALUES
-	(1,'admin','admin');

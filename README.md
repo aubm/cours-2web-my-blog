@@ -12,6 +12,7 @@ Ce projet est un support pour le cours de Supinfo 2WEB promotion 2014/2015.
 4. Démarrer un serveur HTTP avec PHP dans le répertoire `public` :
 ..1. `cd public`
 ..2. `php -S localhost:8080`
+5. (Option) La branche `add_router` propose une organisation du code permettant d'intégration de routing.
 
 # Utilisation
 
